@@ -1,0 +1,40 @@
+<div class="card">
+  <h5>Horizontal and Vertical</h5>
+  <p-treeTable
+    [value]="files4"
+    [columns]="cols"
+    [scrollable]="true"
+    scrollHeight="200px"
+    [style]="{ width: '600px' }"
+  >
+    <ng-template pTemplate="colgroup" let-columns>
+      <colgroup>
+        <col *ngFor="let col of columns" style="width:350px" />
+      </colgroup>
+    </ng-template>
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th *ngFor="let col of columns">
+          {{ col.header }}
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template
+      pTemplate="body"
+      let-rowNode
+      let-rowData="rowData"
+      let-columns="columns"
+    >
+      <tr>
+        <td *ngFor="let col of columns; let i = index">
+          <p-treeTableToggler
+            [rowNode]="rowNode"
+            *ngIf="i == 0"
+          ></p-treeTableToggler>
+          <input *ngIf="i == 0" type="checkbox" (change)="clicked({rowData,rowNode})" />
+          {{ rowData[col.field] }}
+        </td>
+      </tr>
+    </ng-template>
+  </p-treeTable>
+</div>
